@@ -1,5 +1,7 @@
 from flask import escape, abort
 
+ALLOWED_EXTENSIONS = ['png']
+
 def iconGenerator(request):
     """HTTP Cloud Function to remove background and transform icon to different sizes
     Args:
@@ -16,7 +18,16 @@ def iconGenerator(request):
             return abort(403)   
 
     img = request.files["image"]
-    return 'attached file {}!'.format(img.filename)
+    
+    if not allowed_file(img.filename):
+        return abort(403)
+    
+
+    return 'attached file {}!'.format(type(img))
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def hello_http(request):
     """HTTP Cloud Function.
