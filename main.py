@@ -1,4 +1,22 @@
-from flask import escape
+from flask import escape, abort
+
+def iconGenerator(request):
+    """HTTP Cloud Function to remove background and transform icon to different sizes
+    Args:
+        request (flask.Request): The request object.
+        <http://flask.pocoo.org/docs/1.0/api/#flask.Request>
+    Returns:
+        any set of values that can be turned into a
+        Response object using `make_response`
+        <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>.
+    """
+    #check if the request is valid
+    if request.method != "POST":
+        if "image" not in  request.files:
+            return abort(403)   
+
+    img = request.files["image"]
+    return 'attached file {}!'.format(img.filename)
 
 def hello_http(request):
     """HTTP Cloud Function.
