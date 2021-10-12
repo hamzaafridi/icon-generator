@@ -1,6 +1,6 @@
 # Function dependencies, for example:
 # package>=version
-opencv_python==4.1.0.25
+opencv_python==4.1.1.26
 numpy==1.16.4
 io
 cv2
